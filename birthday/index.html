@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HAPPIEST BIRTHDAY.EXE</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+<style>
+:root{
+    --bg:#0b0618;
+    --panel:#140b2e;
+    --pink:#ff2bd6;
+    --cyan:#00f0ff;
+    --yellow:#ffe94d;
+    --text:#d9f7ff;
+    color-scheme:dark;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom: env(safe-area-inset-bottom,0px)
+}
+html{
+    height:100%;
+}
+*,*::before,*::after{
+    box-sizing:border-box;
+}
+body{
+    margin:0;
+    min-height:100%;
+    background:var(--bg);
+    color:var(--text);
+    font-family: 'Press Start 2P','Courier New',monospace;
+    font-size:12px;
+    line-height:1.9;
+    background-image:linear-gradient(rgba(0,240,255,0.10) 1px, transparent 1px),linear-gradient(90deg,rgba(255,43,214,0.10) 1px,transparent 1px);
+    background-size:32px 32px;
+}
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9;
+    background:repeating-linear-gradient(to bottom,rgba(0,0,0,.28) 0 2px, transparent 2px 4px);
+}
+#fall{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none;
+}
+main{
+    position:relative;
+    z-index:1;
+    max-width:560px;
+    margin:0 auto;
+    padding:24px 16px 48px;
+}
+.panel{
+    background:var(--panel);
+    border:4px solid var(--cyan);
+    padding:18px;
+    margin:0 0 20px;
+    box-shadow:0 0 0 4px var(--bg),0 0 0 8px var(--pink),0 0 28px rgba(0,240,255,.45);
+}
+.hidden{
+    display:none;
+}
+#boot{
+    color:var(--cyan);
+    min-height:190px;
+    font-size:11px;
+    margin:0;
+    white-space:pre-wrap;
+}
+.loc{
+    font-size:9px;
+    color:var(--cyan);
+    text-align:center;
+    margin:0;
+}
+h1{
+    font-size:clamp(16px,5.2vw,26px);
+    line-height:1.5;
+    margin:6px 0 14px;
+    color:var(--yellow);
+    text-align:center;
+    text-shadow:3px 0 var(--pink),-3px 0 var(--cyan);
+    animation:glitch 3s steps(1) infinite;
+}
+@keyframes glitch{0%,92%,100%{transform:none;text-shadow:3px 0 var(--pink),-3px 0 var(--cyan)}93%{transform:translate(-4px,0);text-shadow:-6px 0 var(--pink),-6px 0 var(--cyan)}97%{transform:translate(0,-2px)}}
+h1.dash{
+    animation:dash .9s steps(6) 1,glitch 3s steps(1) .9s infinite;
+}
+@keyframes dash{0%{transform:translateX(-90%);opacity:.2;text-shadow:40px 0 var(--pink),-80px 0 var(--cyan),120px 0 var(--yellow)}100%{transform:none;opacity:1;text-shadow:3px 0 var(--pink),-3px 0 var(--cyan)}}
+.heart{
+    display:block;
+    margin:10px auto;
+    width:84px;
+    height:72px;
+    color:var(--pink);
+    filter:drop-shadow(0 0 8px var(--pink));
+    animation:beat 1.2s steps(2) infinite;
+}
+@keyframes beat{50%{transform:scale(1.12)}}
+button{
+    font:inherit;
+    font-size:12px;
+    color:var(--bg);
+    background:var(--yellow);
+    border:0;
+    padding:14px 16px;
+    width:100%;
+    cursor:pointer;
+    box-shadow:4px 4px 0 var(--pink);
+    text-transform:uppercase;
+}
+button+button{
+    margin-top:14px;
+}
+button:active{
+    transform:translate(4px,4px);
+    box-shadow:none;
+}
+button:focus-visible{
+    outline:3px solid var(--cyan);
+    outline-offset:3px;
+}
+.blink{animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0.25}}
+#menu{margin-top:8px}
+#out{min-height:70px;color:var(--cyan);font-size:11px;margin:14px 0 0}
+.hud{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10px;color:var(--cyan);margin-bottom:12px}
+.bar{display:flex;gap:3px}
+.bar i{width:12px;height:14px;background:#2a1a55;display:block}
+.bar i.on{background:var(--pink);box-shadow:0 0 6px var(--pink)}
+#log{list-style:none;margin:0 0 16px;padding:0;max-height:420px;overflow-y:auto}
+#log li{margin:0 0 14px;padding-left:18px;position:relative}
+#log li::before{content:">";
+    position:absolute;
+    left:0;
+    color:var(--pink);
+}
+#log li:last-child::after{
+    content:"_";
+    color:var(--yellow);
+    animation:blink 1s steps(2) infinite;
+}
+.photo{
+    display:block;
+    width:100%;
+    max-width:320px;
+    margin:10px 0 0;
+    border:3px solid var(--pink);
+    box-shadow:0 0 12px var(--cyan);
+}
+.final{
+    text-align:center;
+    color:var(--yellow);
+    background-image:radial-gradient(var(--text) 1px,transparent 1.5px),radial-gradient(var(--cyan) 1px,transparent 1.5px);
+    background-size:46px 46px,71px 71px;
+    background-position:0 0,23px 31px;
+}
+.final p{margin:12px 0}
+.moon{
+    display:block;
+    margin:14px auto 0;
+    width:150px;
+    height:150px;
+    filter:drop-shadow(0 0 14px #b9a7e8);
+    animation:float 4s steps(4) infinite;
+}
+@keyframes float{50%{transform:translateY(-6px)}}
+.sit{display:block;margin:0 auto 10px;width:140px;height:42px}
+.stats{font-size:10px;color:var(--cyan);line-height:2.2;margin:10px 0 0}
+.trail{
+    position:fixed;
+    width:8px;
+    height:8px;
+    background:var(--cyan);
+    box-shadow:0 0 10px var(--cyan);
+    pointer-events:none;
+    z-index:8;
+    transform:translate(-50%,-50%);
+    animation:fade .6s steps(5) forwards;
+}
+@keyframes fade{to{opacity:0;transform:translate(-50%,-50%) scale(0.3)}}
+@media (prefers-reduced-motion:reduce){h1,h1.dash,.heart,.blink,.moon{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="fall"></canvas>
+<button id="mute" style="position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));width:auto;z-index:11;padding:10px 12px">♪ on</button>
+<main>
+
+<section class="panel" id="s-boot">
+<pre id="boot"></pre>
+<button id="start" class="hidden"><span class="blink">JACK IN, REGENT</span></button>
+</section>
+
+<section class="panel hidden" id="s-menu">
+<p class="loc">NIGHT CITY, 2026</p>
+<h1 id="title"></h1>
+<svg class="heart" id="heart" viewBox="0 0 7 6" shape-rendering="crispEdges" aria-hidden="true"></svg>
+<div id="menu">
+    <button id="b-play">Play braindances</button>
+    <button id="b-gig">Check the gig board</button>
+    <button id="b-drink">Order a drink</button>
+</div>
+<p id="out"></p>
+</section>
+
+<section class="panel hidden" id="s-main">
+<div class="hud"><span id="count"></span><span class="bar" id="bar" aria-hidden="true"></span></div>
+<ul id="log"></ul>
+<button id="next">NEXT MEMORY</button>
+</section>
+
+<section class="panel hidden" id="s-end">
+<h1>DESTINATION: THE MOON</h1>
+<svg class="moon" id="moon" viewBox="0 0 15 15" shape-rendering="crispEdges" aria-hidden="true"></svg>
+<svg class="sit" viewBox="0 0 20 6" shape-rendering="crispEdges" aria-hidden="true">
+<rect x="0" y="5" width="20" height="1" fill="#b9a7e8"/>
+<rect x="5" y="0" width="2" height="2" fill="#ff2bd6"/><rect x="5" y="2" width="2" height="3" fill="#ff2bd6"/>
+<rect x="9" y="0" width="2" height="2" fill="#00f0ff"/><rect x="9" y="2" width="2" height="3" fill="#00f0ff"/>
+<rect x="7" y="3" width="2" height="1" fill="#ffe94d"/>
+</svg>
+<p id="final"></p>
+<p class="stats" id="stats"></p>
+</section>
+
+</main>
+<script>
+const NAME = "REGENT";
+
+// Boot lines
+const BOOT = [
+    "> JACKING IN...",
+    "> BREACHING ICE....... OK",
+    "> SEARCHING FOR NAILOONG....... OK",
+    "> 52 BOMBOCLAT PUSSYWAGON CHICKEN NUGGETS FOUND",
+    "> ACCESS GRANTED. WELCOME, " + NAME + ".",
+    "> CYBERPSYCHOSIS: 0%",
+    "> 1 NEW GIFT FOUND"
+];
+
+// Reasons
+const REASONS = [
+    "YOU ARE THE BESTEST CHOOM I COULD EVER ASK FOR.",
+    "YOU ALWAYS KNOW HOW TO MAKE ME LAUGH",
+    "YOU'VE ALWAYS BEEN THERE FOR ME THROUGH MY HIGHS AND LOWS",
+    "BEST TRAVEL CHOOMY EVER",
+    "BEST CHEF IN NIGHT CITY",
+    "GYM CHOOMY FOR LYF (WE NEED TO LOCK BACK IN)",
+    "MY #1 FARTY (we both are T_T)"
+];
+
+
+// Photos
+const PHOTOS = [
+    ["photo1.jpg","photo2.jpg"],
+    ["photo3.jpg","photo4.jpg","photo5.jpg"],
+    ["photo6.jpg","photo7.jpg"],
+    ["photo8.jpg","photo9.jpg","photo10.jpg","photo11.jpg"],
+    "photo12.jpg",
+    "photo13.jpg",
+    ["photo14.jpg","photo15.jpg","photo16.jpg","photo17.jpg","photo18.jpg"]
+];
+const PIXEL_SIZE=80; 
+
+
+const FINAL = [
+    "HAPPY BIRTHDAY, " + NAME + ". Wherever we end up, even if it's on the moon, I want you to know that I love you and I am so grateful for you. Thank you for being my best friend, my partner in crime, and my favorite person in the world. Here's to many more adventures together. I can't wait to experience the world and this life with you."
+];
+
+const STATS = [
+    "HUMANITY: 100%",
+    "CYBERPSYCHOSIS: 0%",
+    "ARASAKA OFFER FOR YOUR HEART: DECLINED",
+    "SAMURAI: MAYBE INVITED",
+    "REWARD: THE BESTEST CHOOM EVER"
+];
+
+// MENU EXTRAS
+const GIGS = [
+    "GIG: Watch a movie together. PAY: Unlimited hot choco and cuddles.",
+    "GIG: Cook dinner for two. PAY: NO BOYFRIEND TAX. Infinite leftovers for later.",
+    "GIG: Steal one hug. PAY: One kiss and a lifetime of love. RISK: I won't let go.",
+    "GIG: Build our lives together. RISK: You're stuck with me for life. PAY: Loads of laughter. Or tears. Could be both."
+];
+const DRINKS = [
+    "DRINK: Hot chocolate with extra marshmallows. PRICE: Free, because I love you.",
+    "DRINK: A cup of love and warmth. PRICE: Just a smile from you.",
+    "DRINK: A toast to our friendship and love. PRICE: A lifetime of happiness together.",
+    "DRINK: Coconut juice. PRICE: Unlimited hugs from this tropical binch."
+];
+/* ============================================ */
+
+const $ = id => document.getElementById(id);
+const HEART = ["0110110","1111111","1111111","0111110","0011100","0001000"];
+let typing = false;
+
+// pixel hearttt
+let rects = "";
+HEART.forEach((row,y)=>[...row].forEach((c,x)=>{if(c=="1")rects+=`<rect x="${x}" y="${y}" width="1" height="1" fill="currentColor"/>`}));
+$("heart").innerHTML = rects;
+
+// da pixel moon
+let m="";
+for(let y=0;y<15;y++)for(let x=0;x<15;x++){
+    if (Math.hypot(x-7,y-7)<=7) {
+        const crater = (x-5)**2+(y-5)**2<=2 || (x-9)**2+(y-9)**2<=3 || (x-9)**2+(y-4)**2<=1;
+        m += `<rect x="${x}" y="${y}" width="1" height="1" fill="${crater?"#b9a7e8":"#f4f1ff"}"/>`;
+    }
+}
+$("moon").innerHTML = m;
+
+// 8-bit beep
+let ac;
+function beep(freq = 660, dur = 0.08) {
+    try{
+        ac = ac||new (window.AudioContext||window.webkitAudioContext)();
+        const o=ac.createOscillator(),g=ac.createGain();
+        o.type="square";o.frequency.value=freq;g.gain.value=0.04;
+        o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+dur);
+    }catch(e){}
+}
+
+// typewriter
+function typeInto(el, text, speed, done){
+    let i=0;
+    const t=setInterval(() => {
+        el.textContent+=text[i++];
+        if(i%2===0) beep(900,0.02);
+        if(i>=text.length){clearInterval(t); if(done) done(); }
+    },speed);
+}
+
+// netrunner cursor
+if(!matchMedia("(prefers-reduced-motion:reduce)").matches){
+    let last=0;
+    addEventListener("pointermove",e=> {
+        const now=performance.now();
+        if(now-last<30)return;
+        last=now;
+        const d=document.createElement("div");
+        d.className="trail"
+        d.style.left=e.clientX+"px";
+        d.style.top=e.clientY+"px";
+        document.body.appendChild(d);
+        setTimeout(()=>d.remove(),600);
+    });
+}
+
+// music box
+const MUSIC_FILE = "musicbox.mp3";   // optional: "musicbox.mp3" to play a file instead
+const BPM = 84;
+const NOTE = {A4:440,C5:523.25,D5:587.33,E5:659.25,G5:783.99,A5:880};
+const TUNE = [
+  ["E5",1],["G5",1],["A5",2],["G5",1],["E5",1],["D5",2],
+  ["C5",1],["D5",1],["E5",2],["D5",1],["C5",1],["A4",2],
+  ["E5",1],["G5",1],["A5",2],["G5",1],["A5",1],["G5",2],
+  ["E5",1],["D5",1],["C5",4]
+];
+let musicOn = false, mt, step = 0, audioEl;
+
+function bell(freq) {
+  ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+  const t = ac.currentTime;
+  [[1, .09], [2, .03], [3.01, .012]].forEach(([mult, vol]) => {
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = "sine"; o.frequency.value = freq * mult;
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(.0001, t + 1.6);
+    o.connect(g); g.connect(ac.destination);
+    o.start(t); o.stop(t + 1.6);
+  });
+}
+function tick() {
+  if (!musicOn) return;
+  const [n, beats] = TUNE[step % TUNE.length]; step++;
+  if (NOTE[n]) bell(NOTE[n]);
+  mt = setTimeout(tick, beats * 60000 / BPM);
+}
+function startMusic() {
+  if (musicOn) return;
+  musicOn = true;
+  if (MUSIC_FILE) {
+    audioEl = audioEl || Object.assign(new Audio(MUSIC_FILE), { loop: true });
+    audioEl.play();
+  } else tick();
+}
+$("mute").onclick = () => {
+  if (musicOn) { musicOn = false; clearTimeout(mt); if (audioEl) audioEl.pause(); $("mute").textContent = "♪ off"; }
+  else { startMusic(); $("mute").textContent = "♪ on"; }
+};
+
+// boot sequence
+(function boot(n) {
+    if(n>=BOOT.length){$("start").classList.remove("hidden");return;}
+    typeInto($("boot"),BOOT[n]+"\n",35,()=>boot(n+1));
+})(0);
+
+// jack in (afterlife menu)
+$("start").onclick=()=>{
+    startMusic();
+    beep(523,0.12);setTimeout(()=>beep(784,0.18),120);
+    $("s-boot").classList.add("hidden");
+    $("s-menu").classList.remove("hidden");
+    const t=$("title");
+    t.textContent="HAPPY BIRTHDAY, "+NAME.toUpperCase();
+    t.classList.add("dash");
+    const bar=$("bar")
+    for(let i=0; i<10;i++)bar.appendChild(document.createElement("i"));
+    updateHud();
+};
+
+// menu (gig board + drinks)
+function menuSay(list){
+    if(typing)return;
+    typing=true;
+    const out=$("out")
+    out.textContent="> ";
+    typeInto(out,list[Math.floor(Math.random()*list.length)],25,()=>{typing=false;});
+}
+$("b-gig").onclick=()=>menuSay(GIGS);
+$("b-drink").onclick=()=>menuSay(DRINKS);
+
+// menu (start braindances)
+$("b-play").onclick=()=>{
+    if(typing)return;
+    $("menu").classList.add("hidden");
+    $("out").classList.add("hidden");
+    $("s-main").classList.remove("hidden");
+    playNext();
+}
+
+// braindances (memories)
+let idx=0
+function updateHud(){
+    $("count").textContent="BRAINDANCE " + idx + "/" + REASONS.length;
+    const lit=Math.round((idx/REASONS.length)*10);
+    [...$("bar").children].forEach((b,i)=>b.classList.toggle("on", i<lit));
+}
+
+function addPhoto(li,src){
+    const slot=document.createElement("div");
+    li.appendChild(slot);
+    const img=new Image();
+    img.onload=()=>{
+        if(!PIXEL_SIZE){
+            img.className="photo";
+            slot.appendChild(img);
+        } else {
+            const w=PIXEL_SIZE,h=Math.round(PIXEL_SIZE*img.height/img.width);
+            const small=document.createElement("canvas");
+            small.width=w;small.height=h;
+            small.getContext("2d").drawImage(img,0,0,w,h);
+            const cv=document.createElement("canvas");
+            cv.className="photo";cv.width=320;cv.height=Math.round(320*img.height/img.width);
+            const c=cv.getContext("2d");
+            c.imageSmoothingEnabled=false;
+            c.drawImage(small,0,0,cv.width,cv.height);
+            slot.appendChild(cv);
+        }
+        $("log").scrollTop=$("log").scrollHeight;
+    };
+    img.onerror=()=>console.log("Photo failed to load:",src);
+    img.src=src;
+}
+
+function playNext(){
+    if(idx>=REASONS.length || typing) return;
+    const i = idx++;
+    const li = document.createElement("li");
+    $("log").appendChild(li);
+    updateHud();
+    typing = true;
+    beep(660+i*40,0.1);
+    typeInto(li, REASONS[i],28,()=> {
+        typing=false;
+        [].concat(PHOTOS[i] || []).forEach(src => addPhoto(li,src));
+        $("log").scrollTop=$("log").scrollHeight;
+        if(idx>=REASONS.length){
+            $("next").textContent="Go to the moon";
+            $("next").onclick=finish;
+        }
+    });
+}
+$("next").onclick=playNext;
+
+function finish(){
+    beep(784,0.15);setTimeout(()=>beep(1047,0.25),150);
+    $("next").classList.add("hidden");
+    $("s-end").classList.remove("hidden");
+    $("final").textContent=FINAL;
+    $("stats").innerHTML=STATS.join("<br>");
+    fall();
+    $("s-end").scrollIntoView({ behavior:"smooth"});
+}
+
+// falling pixel hearts
+function fall(){
+    const cv = $("fall"),ctx=cv.getContext("2d");
+    const size=()=>{cv.width=innerWidth;cv.height=innerHeight;};
+    size();addEventListener("resize", size);
+    const colors=["#ff2bd6","#00f0ff","#ffe94d"];
+    const hs=Array.from({length:22},()=>({
+        x:Math.random()*innerWidth,y:Math.random()* -innerHeight,
+        s:3+Math.floor(Math.random()*3),v:0.6+Math.random()*1.4,
+        c:colors[Math.floor(Math.random()*3)]
+    }));
+    (function loop(){
+        ctx.clearRect(0,0,cv.width,cv.height);
+        hs.forEach(h=>{
+            ctx.fillStyle=h.c;
+            HEART.forEach((row,y)=>[...row].forEach((c,x)=>{if (c==="1") ctx.fillRect(Math.round(h.x+x*h.s), Math.round(h.y+y*h.s),h.s,h.s);}));
+            h.y+= h.v;
+            if(h.y>cv.height){h.y=-30;h.x=Math.random()*cv.width; }
+        });
+        requestAnimationFrame(loop);
+    })();
+}
+</script>
+</body>
+</html>
