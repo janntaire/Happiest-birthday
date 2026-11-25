@@ -398,11 +398,23 @@ $("mute").onclick = () => {
   else { startMusic(); $("mute").textContent = "♪ on"; }
 };
 
-// boot sequence
-(function boot(n) {
-    if(n>=BOOT.length){$("start").classList.remove("hidden");return;}
-    typeInto($("boot"),BOOT[n]+"\n",35,()=>boot(n+1));
-})(0);
+// boot sequence (starts on first tap so sound is allowed)
+const bootEl = $("boot");
+bootEl.textContent = "> TAP ANYWHERE TO BOOT_";
+let booted = false;
+function runBoot(){
+    if(booted) return;
+    booted = true;
+    bootEl.textContent = "";
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    ac.resume();
+    (function boot(n){
+        if(n>=BOOT.length){$("start").classList.remove("hidden");return;}
+        typeInto(bootEl,BOOT[n]+"\n",35,()=>boot(n+1));
+    })(0);
+}
+addEventListener("pointerdown", runBoot, {once:true});
+addEventListener("keydown", runBoot, {once:true});
 
 // jack in (afterlife menu)
 $("start").onclick=()=>{
